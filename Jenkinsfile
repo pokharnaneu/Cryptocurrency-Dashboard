@@ -5,13 +5,13 @@ pipeline  {
     
   stages {
         
-    stage('Git') {
+    stage('Cloning Git') {
       steps {
         git 'https://github.com/pokharnaneu/Cryptocurrency-Dashboard.git'
       }
     }
      
-    stage('Build') {
+    stage('Install dependencies') {
       steps {
         sh 'npm install'         
       }
@@ -20,7 +20,7 @@ pipeline  {
             
     stage('Test') {
       steps {
-        sh 'node test'
+        sh 'npm test'
       }
     }
   }
