@@ -92,7 +92,7 @@ class Home extends React.Component{
          {/*  <Display/> */}
           <Switch>
            <Route exact path="/" component={Display} />} />
-            <Route exact path="/api/:acronym" component={fetch} />} />            
+            <Route exact path="/coins/:acronym" component={fetch} />} />            
           </Switch>
         </Router>      
         {/* <div>

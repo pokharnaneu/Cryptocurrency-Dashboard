@@ -15,7 +15,7 @@ class Display extends React.Component{
     };
     
     getBlogPost = () => {
-      axios.get('/api')
+      axios.get('/coins')
         .then((response) => {        
           const data = response.data;
           this.setState({ posts: data });
@@ -81,7 +81,7 @@ class Display extends React.Component{
                 <Route exact path={'/api/' + post.coin_id} children={<fetch {...this.state} />} className="data-body-a"/>
                 {post.acronym}
                 </Switch> */}
-                   <Link to={'/api/' + post.acronym} className="data-body-a">{post.acronym}</Link>                   
+                   <Link to={'/coins/' + post.acronym} className="data-body-a">{post.acronym}</Link>                   
                     <div className="data-body-div"></div>
                     </td>              
                   <td className="data-body-td" arial-label="Name">{post.name}</td> 

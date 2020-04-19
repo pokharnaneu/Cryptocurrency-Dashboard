@@ -28,9 +28,9 @@ class fetch extends Component {
   componentDidMount(){
     const getData = () => {
       const url_data = window.location.pathname;
-      const coin_id=url_data.substring(5,url_data.length);
+      const coin_id=url_data.substring(7,url_data.length);
       console.log("coin_id",coin_id);   
-      axios.get(`/api/${coin_id}`)
+      axios.get(`/coins/${coin_id}`)
         .then((response) => {        
           var posts = response.data;
           this.state.name=posts.name;

@@ -17,9 +17,9 @@ class InfoBox extends Component {
       const {data} = this.props;
       //console.log("data in infoBox coming from fetch.js",data);
       const url_data = window.location.pathname;
-      const coin_id=url_data.substring(5,url_data.length);
+      const coin_id=url_data.substring(7,url_data.length);
       //console.log("coin_id",coin_id);  
-      axios.get(`/api/${coin_id}`)
+      axios.get(`/coins/${coin_id}`)
         .then((response) => {        
           const posts = response.data;
           this.setState({ posts: posts });
