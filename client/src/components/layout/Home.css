@@ -131,3 +131,13 @@
     line-height: 1.42857;
       white-space: nowrap;
   }
+  @media only screen and (max-device-width: 480px) {
+    .Home{
+      width: 100%;
+      font-size: 70%;     
+      position: relative;
+    }
+    .data-table{
+      width: 100%;
+    }
+}

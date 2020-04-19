@@ -7,3 +7,11 @@
     color: white;
     font-size: 40px;
   }
+  @media only screen and (max-device-width: 480px) {
+.App-header{
+  width: 100%;
+  font-size: 140%;
+  height: 93px;
+  position: relative;
+}
+  }
