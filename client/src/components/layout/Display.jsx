@@ -30,8 +30,9 @@ class Display extends React.Component{
         const sortedData = [];
         let count=0;    
         for (var i = 0; i < 1; i++){
-      // console.log("time stamp",posts[i].coin_id);
-        for (var j = 0; j < posts[i].chart_timestamps.length; j++){           
+      console.log("time stamp",posts[i]);
+        for (var j = 0; j < posts[i].chart_timestamps.length-5; j++){ 
+          if(posts[i].chart_closes[j]!=null)  {        
          var utcSeconds = posts[i].chart_timestamps[j];
           var d = new Date(0);
           d.setUTCSeconds(utcSeconds);
@@ -50,7 +51,9 @@ class Display extends React.Component{
             y: y // numerical price
           });
           count++;
-    }     
+          } else{
+            continue;
+          } }     
 }
      
       return (   
@@ -104,8 +107,7 @@ class Display extends React.Component{
         return(
           <div className="Home">                        
             <div>
-              {this.displayBlogPost(this.state.posts)}
-            
+              {this.displayBlogPost(this.state.posts)}            
             </div>            
         </div>
         

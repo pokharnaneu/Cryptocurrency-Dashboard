@@ -11,7 +11,12 @@ class fetch extends Component {
       fetchingData: true,
       data: null,
       hoverLoc: null,
-      activePoint: null
+      activePoint: null,
+      name:null,
+      market_cap:null,
+      vol_24h:null,
+      circulating_supply:null,
+      about:null
     }
   }
   handleChartHover(hoverLoc, activePoint){
@@ -28,6 +33,11 @@ class fetch extends Component {
       axios.get(`/api/${coin_id}`)
         .then((response) => {        
           var posts = response.data;
+          this.state.name=posts.name;
+          this.state.market_cap=posts.market_cap;
+          this.state.circulating_supply=posts.circulating_supply;
+          this.state.vol_24h=posts.vol_24h;
+          this.state.about=posts.about;
           console.log('Data has been received for chart!!',posts);
          // this.setState({ posts: response.data });
           //console.log('Data has been received for chart!!',posts);
@@ -36,6 +46,7 @@ class fetch extends Component {
           for (var i = 0; i < 1; i++){
           //console.log("posts",posts[i]);
           for(var j=0;j<response.data.chart_timestamps.length;j++){
+            if(response.data.chart_closes[j]!=null){
             var utcSeconds = response.data.chart_timestamps[j];
             var d = new Date(0);
             d.setUTCSeconds(utcSeconds);
@@ -50,6 +61,9 @@ class fetch extends Component {
             y: y // numerical price
             });
             count++;
+           } else{
+            continue;
+          }
           }
           this.setState({
             data: sortedData,
@@ -67,16 +81,10 @@ class fetch extends Component {
  render() {
     return (
 
-      <div className='container'>
-        <div className="Main">
-          <h4>Detail of coin</h4>
-       <div id="quote-header">
-           <div className="position">
-                <div id="graph">
-                    <div id="graph-area">
-                      <div className='row'>
-          <h1>30 Day Price Chart</h1>
-        </div>
+      <div className='container'>       
+      <div className='row'>
+    <h1>30 Days <u>{this.state.name}</u> Price Chart</h1>
+        </div>        
         <div className='row'>
           { !this.state.fetchingData ?
           <InfoBox data={this.state.data} />
@@ -93,91 +101,93 @@ class fetch extends Component {
               <LineChart data={this.state.data} onChartHover={ (a,b) => this.handleChartHover(a,b) }/>
               : null }
           </div>
-        </div>        
-      </div>
-                <canvas id="canvas"></canvas>
-                    </div>
+        </div>   
+        <hr></hr>
+           <div className="about">
+              <div className="about-head">
+                  <div className="about-head-data">
+                      <label className="about-head-label">
+                        Name                        
+                        <span className="symbol-space">
+                          &nbsp;
+                          <span className="tooltip">
+                              &#9432;
+                              <span className="tooltiptext">
+                                Cryptocurrency Name
+                              </span>
+                           </span>
+                        </span>
+                        </label>
+                  </div>
+                  <h6 className="about-subhead">{this.state.name}</h6>
+              </div>
+              <div className="about-head">
+                  <div className="about-head-data">
+                      <label className="about-head-label">
+                        Market cap                        
+                        <span className="symbol-space">
+                          &nbsp;
+                          <span className="tooltip">
+                              &#9432;
+                              <span className="tooltiptext">
+                                The current price of <span>{this.state.name}</span> 
+                                &nbsp;multiplied by its current circulating supply.
+                              </span>
+                           </span>
+                        </span>
+                        </label>
+                  </div>
+                  <h6 className="about-subhead">{this.state.market_cap}</h6>
+              </div>
+              <div className="about-head">
+                  <div className="about-head-data">
+                      <label className="about-head-label">
+                        Volume (24 hours)                        
+                        <span className="symbol-space">
+                          &nbsp;
+                          <span className="tooltip">
+                              &#9432;
+                              <span className="tooltiptext">
+                                The total dollar value of all <span>{this.state.name}</span>
+                                &nbsp; transactions over the past 24 hours.
+                              </span>
+                           </span>
+                        </span>
+                        </label>
+                  </div>
+                  <h6 className="about-subhead">{this.state.vol_24h}</h6>
+              </div>
+              <div className="about-head">
+                  <div className="about-head-data">
+                      <label className="about-head-label">
+                        Circulating supply                      
+                        <span className="symbol-space">
+                          &nbsp;
+                          <span className="tooltip">
+                              &#9432;
+                              <span className="tooltiptext">
+                                The amount of <span>{this.state.name}</span>&nbsp; that 
+                                is currently liquid and in circulation.
+                              </span>
+                           </span>
+                        </span>
+                        </label>
+                  </div>
+                  <h6 className="about-subhead">{this.state.circulating_supply}</h6>
+              </div>
+             </div>  
+             <div className="style-container">
+               <div className="style-description">
+                <h2 className="text-element">
+              About <span>{this.state.name}</span>
+                </h2>
+                <div className="style-description-text">
+                  <p className="text-para">
+{this.state.about}
+                  </p>
                 </div>
-           </div>
-           <div id="quote-summary">
-            <div className="left-summary-table">
-            <table className="table">
-            <tbody>
-                <tr className="table-data-row">
-                    <td className="table-data">
-                    <span>Previous Close</span>
-                    </td>
-                    <td className="table-data-value">
-            <span></span>  {/* previous close value */}
-                    </td>
-                </tr>
-                <tr className="table-data-row">
-                    <td className="table-data">
-                    <span>Open</span>
-                    </td>
-                    <td className="table-data-value">
-                      <span></span>  {/* previous close value */}
-                    </td>
-                </tr>
-                <tr className="table-data-row">
-                    <td className="table-data">
-                    <span>Start Date</span>
-                    </td>
-                    <td className="table-data-value">
-                      <span></span>  {/* previous close value */}
-                    </td>
-                </tr>
-                <tr className="table-data-row">
-                    <td className="table-data">
-                    <span>Open</span>
-                    </td>
-                    <td className="table-data-value">
-                      <span></span>  {/* previous close value */}
-                    </td>
-                </tr>
-            </tbody>
-            </table>
-            </div>
-            <div className="right-summary-table">
-            <table className="table">
-            <tbody>
-                <tr className="table-data-row">
-                    <td className="table-data">
-                    <span>Previous Close</span>
-                    </td>
-                    <td className="table-data-value">
-                      <span></span>  {/* previous close value */}
-                    </td>
-                </tr>
-                <tr className="table-data-row">
-                    <td className="table-data">
-                    <span>Open</span>
-                    </td>
-                    <td className="table-data-value">
-                      <span></span>  {/* previous close value */}
-                    </td>
-                </tr>
-                <tr className="table-data-row">
-                    <td className="table-data">
-                    <span>Start Date</span>
-                    </td>
-                    <td className="table-data-value">
-                      <span></span>  {/* previous close value */}
-                    </td>
-                </tr>
-                <tr className="table-data-row">
-                    <td className="table-data">
-                    <span>Open</span>
-                    </td>
-                    <td className="table-data-value">
-                      <span></span>  {/* previous close value */}
-                    </td>
-                </tr>
-            </tbody>
-            </table>
-            </div>            
-           </div>
-       </div>
+               </div>
+               </div> 
       </div>       
 
     );

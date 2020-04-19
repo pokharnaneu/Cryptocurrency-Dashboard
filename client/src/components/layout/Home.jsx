@@ -9,7 +9,9 @@ class Home extends React.Component{
   constructor(props) {
   super(props);
   this.state = {           
-    posts:[]
+    posts:[],
+    table_flag:true,
+    chart_flag:false
   };
  }
   /* componentDidMount = () => {
@@ -86,12 +88,13 @@ class Home extends React.Component{
     return(
       <div className="Home">
       <Header/>
-      <Router>
-          <Display/>
+      <Router>      
+         {/*  <Display/> */}
           <Switch>
+           <Route exact path="/" component={Display} />} />
             <Route exact path="/api/:acronym" component={fetch} />} />            
           </Switch>
-        </Router>        
+        </Router>      
         {/* <div>
           {this.displayBlogPost(this.state.posts)}
         </div>  */}
