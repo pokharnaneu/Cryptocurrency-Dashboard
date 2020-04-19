@@ -1,4 +1,4 @@
-Cryptocurrency-Dashboard {
+pipeline  {
   agent any
     
   tools {nodejs "node"}
