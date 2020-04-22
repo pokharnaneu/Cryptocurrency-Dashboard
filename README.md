@@ -1,1 +1,1 @@
-[Contribution guidelines for this project](./Front End Configuration Instructions.docx)
+[Contribution guidelines for this project](/Front End Configuration Instructions.docx)
